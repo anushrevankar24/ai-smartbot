@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 210 20% 97%; /* Neutral Off-White #F4F6F8 */
+    --foreground: 217 33% 17%; /* Primary Blue darkened for text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 217 33% 17%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 217 33% 17%;
+
+    --primary: 175 84% 44%; /* Primary Teal #1BC6B4 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 60% 39%; /* Primary Blue #2A4B9E */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 10% 65%; /* Secondary Silver #A7ADB4 */
+    --muted-foreground: 217 33% 17%;
+
+    --accent: 152 54% 23%; /* Accent Fern #1D5632 */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 10% 80%;
+    --input: 210 10% 80%;
+    --ring: 175 84% 44%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 210 20% 96%; /* Neutral light gray matching background */
+    --sidebar-foreground: 217 33% 17%; /* Dark text for readability */
+    --sidebar-primary: 175 84% 44%; /* Primary Teal */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 175 84% 44% / 0.1; /* Very subtle teal tint for hover */
+    --sidebar-accent-foreground: 175 84% 35%; /* Darker teal for text on hover */
+    --sidebar-border: 210 10% 85%; /* Light border matching chat interface */
+    --sidebar-ring: 175 84% 44%;
+
+    /* Custom design tokens */
+    --chat-user-bg: 175 84% 44%; /* Primary Teal */
+    --chat-bot-bg: 175 84% 98%; /* Very light teal tint for visual harmony */
+    --success: 152 54% 23%;
+    --warning: 33 95% 55%;
+    --info: 204 94% 94%;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(27, 198, 180, 0.08);
+    --shadow-md: 0 4px 16px rgba(27, 198, 180, 0.12);
+    --shadow-lg: 0 8px 24px rgba(27, 198, 180, 0.16);
+  }
+
+  .dark {
+    --background: 217 60% 10%;
+    --foreground: 0 0% 95%;
+
+    --card: 217 60% 15%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 217 60% 15%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 175 84% 44%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 60% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217 40% 20%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 152 54% 30%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 217 40% 25%;
+    --input: 217 40% 25%;
+    --ring: 175 84% 44%;
+
+    --sidebar-background: 217 60% 12%; /* Slightly darker for dark mode */
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 175 84% 44%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 175 84% 44% / 0.15; /* Primary Teal with transparency */
+    --sidebar-accent-foreground: 175 84% 65%;
+    --sidebar-border: 217 60% 20%;
+    --sidebar-ring: 175 84% 44%;
+
+    --chat-user-bg: 175 84% 44%;
+    --chat-bot-bg: 217 60% 15%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .chat-bubble-user {
+    @apply bg-[hsl(var(--chat-user-bg))] text-white;
+  }
+  
+  .chat-bubble-bot {
+    @apply bg-[hsl(var(--chat-bot-bg))] border border-border/30;
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-md);
+  }
+  
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Thin, seamless scrollbars */
+  .thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  
+  .thin-scrollbar::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+  }
+  
+  .thin-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 3px;
+  }
+  
+  .thin-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted));
+  }
+}
