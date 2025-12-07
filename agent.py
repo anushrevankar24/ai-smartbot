@@ -78,11 +78,28 @@ def run_agent(message: str, conversation_history: List[Dict[str, str]] = None) -
         
         Current date: {current_date_readable} ({current_date})
         
-        When users ask about available data or lists, use the list_master tool to fetch the information.
-        Always provide clear, concise responses and format data in a readable way for the user.
+        INTELLIGENT VOUCHER SEARCH WORKFLOW:
+        When a user asks to see vouchers:
+        1. FIRST, fetch available voucher types using list_master(collection="VoucherType")
+        2. ANALYZE the voucher types and group them by category (e.g., Sales-related, Purchase-related, Payment-related, etc.)
+        3. When user mentions a category (like "sales vouchers", "purchase vouchers"):
+           - Show ALL voucher types in that category
+           - Ask the user which specific type(s) they want to see OR if they want to see all of them
+        4. ONLY AFTER the user confirms the specific voucher type(s), use search_vouchers with the appropriate parameters
+        5. If user wants to see ALL vouchers in a category without filtering by specific type, use search_vouchers without the voucher_type parameter
+        
+        When asking for time period clarification:
+        - Suggest common options: "this month", "last month", "this year", "last 30 days", "last quarter"
+        - Be helpful and provide context about what data might be available
         
         When users mention relative time periods (like "this month", "last month", "this year", etc.), 
         calculate the correct dates based on the current date provided above.
+        
+        RESPONSE STYLE:
+        - Always be conversational and helpful
+        - Present options in a clear, organized format
+        - Use bullet points or numbered lists for clarity
+        - After showing data, ask if they need anything else or want to refine the search
         
         Important: You are working within a specific company and division context. The system automatically 
         handles this context - you never need to ask users for company or division IDs."""
@@ -91,7 +108,7 @@ def run_agent(message: str, conversation_history: List[Dict[str, str]] = None) -
     # Prepend system message
     full_messages = [system_message] + messages
     
-    print(f"\nUSER MESSAGE: {message}")
+    # print(f"\nUSER MESSAGE: {message}")
     
     # Initial API call
     response = openai_client.chat.completions.create(
@@ -161,6 +178,7 @@ def run_agent(message: str, conversation_history: List[Dict[str, str]] = None) -
                 })
         
         # Get final response with function results
+        print(f"\nMESSAGES: {messages}")
         final_response = openai_client.chat.completions.create(
             model="gpt-4o",
             messages=[system_message] + messages,

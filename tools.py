@@ -387,7 +387,7 @@ def search_vouchers_tool(
             
             # Extract insights and records from the response format
             insights = result_data.get('insights', {})
-            records = result_data.get('records', [])
+            records = result_data.get('records') or []  # Handle None case
             
             # Check for empty results
             total_matches = insights.get('total_matches', 0)
@@ -516,7 +516,7 @@ def search_ledgers_tool(
                 return json.dumps({"error": result_data.get('error'), "message": error_msg})
             
             insights = result_data.get('insights', {})
-            records = result_data.get('records', [])
+            records = result_data.get('records') or []  # Handle None case
             
             total_matches = insights.get('total_matches', 0)
             if total_matches == 0 or not records:
@@ -632,7 +632,7 @@ def search_stockitem_tool(
                 return json.dumps({"error": result_data.get('error'), "message": error_msg})
             
             insights = result_data.get('insights', {})
-            records = result_data.get('records', [])
+            records = result_data.get('records') or []  # Handle None case
             
             total_matches = insights.get('total_matches', 0)
             if total_matches == 0 or not records:
@@ -741,7 +741,7 @@ def search_godown_tool(
                 return json.dumps({"error": result_data.get('error'), "message": error_msg})
             
             insights = result_data.get('insights', {})
-            records = result_data.get('records', [])
+            records = result_data.get('records') or []  # Handle None case
             
             total_matches = insights.get('total_matches', 0)
             if total_matches == 0 or not records:
