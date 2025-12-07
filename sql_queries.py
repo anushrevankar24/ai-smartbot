@@ -289,7 +289,7 @@ def get_search_vouchers_query(
             'top_parties_by_value', (SELECT data FROM top_parties_json),
             'voucher_type_summary', (SELECT data FROM type_summary_json)
         ),
-        'records', (SELECT jsonb_agg(rec) FROM ui_records)
+        'records', COALESCE((SELECT jsonb_agg(rec) FROM ui_records), '[]'::jsonb)
     ) AS result;
     """
     
@@ -497,7 +497,7 @@ def get_search_ledgers_query(
             'top_parties_with_dues', (SELECT data FROM top_dues_json),
             'group_summary', (SELECT data FROM group_summary_json)
         ),
-        'records', (SELECT jsonb_agg(rec) FROM ui_records)
+        'records', COALESCE((SELECT jsonb_agg(rec) FROM ui_records), '[]'::jsonb)
     ) AS result;
     """
     
@@ -866,7 +866,7 @@ def get_search_stockitem_query(
                     'All items have GST classification'
             END
         ),
-        'records', (SELECT jsonb_agg(rec) FROM ui_records)
+        'records', COALESCE((SELECT jsonb_agg(rec) FROM ui_records), '[]'::jsonb)
     ) AS result;
     """
     
@@ -1032,7 +1032,7 @@ def get_search_godown_query(
                     'All warehouses have contact information'
             END
         ),
-        'records', (SELECT jsonb_agg(rec) FROM ui_records)
+        'records', COALESCE((SELECT jsonb_agg(rec) FROM ui_records), '[]'::jsonb)
     ) AS result;
     """
     
